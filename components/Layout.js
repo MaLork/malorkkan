@@ -2,7 +2,8 @@ import Head from 'next/head'
 import Link from 'next/link'
 export default function Layout({children,username,login}){
     return(
-        login?(
+        <>
+        {login?(
             <div class = "block text-center" style = {{"height" : "137px","box-shadow": "0 0 20px #8c8c8c"}}>
                 <p class="block bg-grey-600" style={{"fontFamily":"Priyati","fontSize":"128px","transform":"translate(0 , -10%)"}}>Ma-lork together!</p>
             </div>
@@ -39,6 +40,8 @@ export default function Layout({children,username,login}){
                     }  
                 </div>
             </div>
+        </div>
+        )}
             {children}
             <div class="pr-20" style={{"height":"50px", "padding-left":"7.125rem","backgroundColor":"#F2F2F2"}}>
                 <div style={{"fontFamily":"Lato-Light","vertical-align" : "baseline","transform": "translate(0, 50%)"}}>
@@ -48,6 +51,6 @@ export default function Layout({children,username,login}){
                     <p class="float-right">Malork Inc © 2020. All rights reserved</p>
                 </div>
             </div>
-        </div>)
+        </>
     )
 }
