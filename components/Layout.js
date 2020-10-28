@@ -32,7 +32,7 @@ export default function Layout({children,username,login}){
                         ):(
                             <Link href = "/login"><a class="inline-block">
                                     <div class = "-mt-2 rounded-lg text-xl relative" style={{"height":"50px","backgroundColor":"#AB3B61"}}>
-                                       <p class = "px-4 pt-1 text-white" style={{"fontFamily":"Mitr-Normal","fontSize":"28px"}}>Get Started</p>
+                                       <p class = "px-4 pt-1 text-white" style={{"fontFamily":"Mitr-Light","fontSize":"28px"}}>Get Started</p>
                                     </div>
                                 </a></Link>
                         )
@@ -40,6 +40,14 @@ export default function Layout({children,username,login}){
                 </div>
             </div>
             {children}
+            <div class="pr-20" style={{"height":"50px", "padding-left":"7.125rem","backgroundColor":"#F2F2F2"}}>
+                <div style={{"fontFamily":"Lato-Light","vertical-align" : "baseline","transform": "translate(0, 50%)"}}>
+                    <p class="inline mr-20">Content Policy</p>
+                    <p class="inline mr-20">About Us</p>
+                    <p class="inline">Help</p>
+                    <p class="float-right">Malork Inc © 2020. All rights reserved</p>
+                </div>
+            </div>
         </div>)
     )
 }
