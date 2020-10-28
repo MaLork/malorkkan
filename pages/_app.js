@@ -1,11 +1,11 @@
 import '../styles/globals.css'
 import '../styles/tailwind.css'
-// import NavBar from '../components/NavBar'
+import '../styles/fonts.css'
 
 function MyApp({ Component, pageProps }) {
   return (
     <>
-      {/* <NavBar /> */}
+      <NavBar />
       <Component {...pageProps} />
     </>
   )
