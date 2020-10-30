@@ -3,11 +3,11 @@ import Link from 'next/link'
 export default function Layout({ children, username, login }) {
   return login ? (
     <div
-      class="block text-center"
-      style={{ height: '137px', 'box-shadow': '0 0 20px #8c8c8c' }}
+      className="block text-center"
+      style={{ height: '137px', boxShadow: '0 0 20px #8c8c8c' }}
     >
       <p
-        class="block bg-grey-600"
+        className="block bg-grey-600"
         style={{
           fontFamily: 'Priyati',
           fontSize: '128px',
@@ -22,12 +22,12 @@ export default function Layout({ children, username, login }) {
       <Head>
         <title>Malork</title>
       </Head>
-      <div class="px-20  pt-12 pb-8">
-        <div class="flex justify-end">
-          <div class="inline-block">
+      <div className="px-20  pt-12 pb-8">
+        <div className="flex justify-end">
+          <div className="inline-block">
             <Link href="/">
               <a
-                class="mr-10"
+                className="mr-10"
                 style={{ fontFamily: 'Quark-Bold', fontSize: '28px' }}
               >
                 Homepage
@@ -35,7 +35,7 @@ export default function Layout({ children, username, login }) {
             </Link>
             <Link href="/about">
               <a
-                class="mr-10"
+                className="mr-10"
                 style={{ fontFamily: 'Quark-Bold', fontSize: '28px' }}
               >
                 About Us
@@ -45,13 +45,13 @@ export default function Layout({ children, username, login }) {
           {username ? (
             <>
               <Link href="/myposts">
-                <a class="inline-block">
+                <a className="inline-block">
                   <div
-                    class="-mt-2 rounded-lg bg-white text-xl relative"
+                    className="-mt-2 rounded-lg bg-white text-xl relative"
                     style={{ height: '50px' }}
                   >
                     <div
-                      class="text-white w-8 h-8 text-center absolute"
+                      className="text-white w-8 h-8 text-center absolute"
                       style={{
                         backgroundColor: '#AB3B61',
                         'border-radius': '50%',
@@ -60,14 +60,14 @@ export default function Layout({ children, username, login }) {
                       }}
                     >
                       <p
-                        class="text-2xl font-semibold"
+                        className="text-2xl font-semibold"
                         style={{ 'line-height': '30px' }}
                       >
                         {username[0].toUpperCase()}
                       </p>
                     </div>
                     <p
-                      class="pl-12 pr-2"
+                      className="pl-12 pr-2"
                       style={{
                         fontFamily: 'Quark-Bold',
                         fontSize: '18px',
@@ -82,13 +82,13 @@ export default function Layout({ children, username, login }) {
             </>
           ) : (
             <Link href="/login">
-              <a class="inline-block">
+              <a className="inline-block">
                 <div
-                  class="-mt-2 rounded-lg text-xl relative"
+                  className="-mt-2 rounded-lg text-xl relative"
                   style={{ height: '50px', backgroundColor: '#AB3B61' }}
                 >
                   <p
-                    class="px-4 pt-1 text-white"
+                    className="px-4 pt-1 text-white"
                     style={{ fontFamily: 'Mitr-Normal', fontSize: '28px' }}
                   >
                     Get Started
