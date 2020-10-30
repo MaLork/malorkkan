@@ -27,6 +27,13 @@
     font-display: swap;
 }
 @font-face {
+    font-family: "Quark-Light";
+    src: url("/fonts/Quark/Quark-Light.otf");
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+}
+@font-face {
     font-family: "Priyati";
     src: url("/fonts/Priyati/Priyati-Regular.ttf");
     font-style: normal;
