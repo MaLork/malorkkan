@@ -1,42 +1,80 @@
-import { useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import Link from 'next/link'
 import router from 'next/router'
+import Head from 'next/head'
+import Layout from '../components/Layout'
+import { loginUser } from '../lib/userFunction'
+import { FirebaseContext } from '../lib/firebaseContext'
+import useFirebaseAuthentication from '../lib/useFirebaseAuthentication'
 
-export default function login({ userData }) {
-  if (userData) {
-    useEffect(() => {
-      router.push('/')
-    })
+export default function login() {
+  let [formState, setFormState] = useState({
+    email: '',
+    password: '',
+  })
+
+  let [loginFailed, setLoginFailed] = useState('')
+
+  const firebase = useContext(FirebaseContext)
+  const authUser = useFirebaseAuthentication(firebase)
+
+  if (authUser) {
+    router.push('/', undefined, { shallow: true })
     return null
   }
 
-  useEffect(() => {
-    let vh = window.innerHeight * 0.01
-    document.documentElement.style.setProperty('--vh', `${vh}px`)
-  })
-
   return (
-    <>
-      <div className="flex justify-center items-center my-4">
-        <h1 className="text-2xl">Ma-lork together!</h1>
-      </div>
-      <hr />{' '}
-      <div
-        className="flex justify-center items-center flex-col text-xl"
-        style={{
-          height: '100vh',
-          height: 'calc(var(--vh, 1vh) * 100)',
-        }}
-      >
-        <div>
+    <div className="flex flex-col h-screen">
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
+      <Layout login />
+      <div className="flex justify-center items-center flex-col text-xl h-full">
+        <p className="items-center mt-2">{loginFailed}</p>
+        <p className="items-center mt-2 mb-4"> Login</p>
+        <form
+          onSubmit={async (e) => {
+            e.preventDefault()
+
+            const status = await loginUser(formState.email, formState.password)
+
+            if (status === 'Success') {
+              router.push('/', undefined, { shallow: true })
+              return
+            }
+
+            setLoginFailed(status.message)
+          }}
+        >
           <div>
             <div>
-              <p>Email: </p>
-              <input type="text"></input>
+              <p htmlFor="email" className="mb-2">
+                Email:{' '}
+              </p>
+              <input
+                type="text"
+                className="mb-2"
+                onChange={(event) =>
+                  setFormState({
+                    email: event.target.value,
+                    password: formState.password,
+                  })
+                }
+              ></input>
             </div>
             <div>
-              <p>Password: </p>
-              <input type="password"></input>
+              <p htmlFor="password" className="mb-2">
+                Password:{' '}
+              </p>
+              <input
+                type="password"
+                onChange={(event) =>
+                  setFormState({
+                    email: formState.email,
+                    password: event.target.value,
+                  })
+                }
+              ></input>
             </div>
           </div>
           <div className="flex">
@@ -52,13 +90,26 @@ export default function login({ userData }) {
               <Link href="/register">
                 <a className="hover:underline pr-3">Register</a>
               </Link>
-              <button className="bg-green-500 hover:bg-green-700 text-white font-bold rounded px-4 py-2">
+              <button
+                type="submit"
+                value="Submit"
+                className="bg-green-500 hover:bg-green-700 text-white font-bold rounded px-4 py-2"
+              >
                 Login
               </button>
             </div>
           </div>
-        </div>
+        </form>
       </div>
-    </>
+    </div>
   )
 }
+
+// export async function getStaticProps() {
+//   let user = await getUserData()
+//   return {
+//     props: {
+//       user,
+//     },
+//   }
+// }
