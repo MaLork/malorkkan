@@ -128,6 +128,7 @@ export default function ThumbnailPost({ data, status, width, admin }) {
                   class="mr-2"
                   style={{ fontFamily: "Mitr", fontSize: 12, color: "#AB3B61" }}
                 >
+                <img class = "inline" src = "../images/commentIcon.svg" style={{width:15,marginRight:4}}></img>
                   comment
                 </a>
               </Link>
@@ -136,6 +137,7 @@ export default function ThumbnailPost({ data, status, width, admin }) {
                 onClick={() => setDisplay("block")}
                 style={{ fontFamily: "Mitr", fontSize: 12, color: "#123D6A" }}
               >
+                <img class = "inline" src = "../images/shareIcon.svg" style={{width:15,marginRight:4}}></img>
                 share
               </button>
               <p
