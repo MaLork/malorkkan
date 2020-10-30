@@ -2,7 +2,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import React, { useState } from "react";
 export default function Share({ topic, link, display, setDispaly}) {
-  const [copyMessage, setCopyMessage] = useState("");
+  const [copyMessage, setCopyMessage] = useState("Copy link");
   return (
     <>
       <div
@@ -70,22 +70,22 @@ export default function Share({ topic, link, display, setDispaly}) {
               {link}
             </div>
             <div class="float-right">
-              <p class="inline mr-6">{copyMessage}</p>
               <CopyToClipboard text={link}>
                 <button
                   class="inline focus:outline-none text-white px-4 bg-white  rounded-xl"
                   style={{
                     paddingTop: 5,
                     paddingBottom: 5,
+                    width: 157,
                     backgroundColor: "#52C587",
                     fontFamily: "Mitr-Normal",
                     fontSize: 24,
                   }}
                   onClick={() => {
-                    setCopyMessage("Copied to clipboard!");
+                    setCopyMessage("Copied");
                   }}
                 >
-                  Copy link
+                  {copyMessage}
                 </button>
               </CopyToClipboard>
             </div>
