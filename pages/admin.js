@@ -4,7 +4,7 @@ import Layout from "../components/Layout.js";
 import Const from "../lib/constants.js";
 export async function getStaticProps() {
   const posts = await (await fetch(Const.api + "/pendings")).json();
-  // const posts = await (await fetch("http://localhost:3000/api/myPosts")).json()
+  // const posts = await (await fetch("http://localhost:3000/api/pendings")).json()
   const username = "username";
   return {
     props: {
@@ -15,7 +15,7 @@ export async function getStaticProps() {
 }
 let time = null;
 export default function myPost({ posts, username }) {
-  const [choose, setChoose] = useState("all");
+  const [choose, setChoose] = useState("pending");
   return (
     <>
       <Layout username={username}>

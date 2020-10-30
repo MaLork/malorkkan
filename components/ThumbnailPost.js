@@ -172,7 +172,7 @@ export default function ThumbnailPost({ data, status, width, admin }) {
                     fontFamily: "Quark-Bold",
                     fontSize: 30,
                   }}
-                  onClick={() => update(data.id, true, stat, setStat)}
+                  onClick={() => update(data.id, true, stat, setStat,data)}
                 >
                   Approve
                 </button>
@@ -185,7 +185,7 @@ export default function ThumbnailPost({ data, status, width, admin }) {
                     fontFamily: "Quark-Bold",
                     fontSize: 30,
                   }}
-                  onClick={() => update(data.id, false, stat, setStat)}
+                  onClick={() => update(data.id, false, stat, setStat,data)}
                 >
                   Reject
                 </button>
@@ -197,7 +197,9 @@ export default function ThumbnailPost({ data, status, width, admin }) {
     </>
   );
 }
-const update = async (id, approve, stat, updateStat) => {
+const update = async (id, approve, stat, updateStat,data) => {
+
+  
   const res = await fetch(Const.api + "/pending/" + id, {
     method: "PUT",
     headers: {
@@ -209,9 +211,9 @@ const update = async (id, approve, stat, updateStat) => {
   console.log(res);
   if (res.status == 200) {
     if (approve) {
-      updateStat("accepted");
+      updateStat("accepted");  data.status="accepted"
     } else {
-      updateStat("rejected");
+      updateStat("rejected");  data.status="rejected"
     }
   }
 };
