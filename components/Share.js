@@ -1,7 +1,7 @@
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import React, { useState } from "react";
-export default function Share({ topic, link, display, setDispaly}) {
+export default function Share({ topic, link, display, setDisplay}) {
   const [copyMessage, setCopyMessage] = useState("Copy link");
   return (
     <>
@@ -16,7 +16,7 @@ export default function Share({ topic, link, display, setDispaly}) {
           left: "0%",
         }}
         onClick={() => {
-          setDispaly("hidden");
+          setDisplay("hidden");
           setCopyMessage("");
         }}
       ></div>
