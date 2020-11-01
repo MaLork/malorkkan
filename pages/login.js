@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import Link from 'next/link'
 import router from 'next/router'
 import style from '../styles/register.module.css'
@@ -9,11 +9,11 @@ import { loginUser } from '../lib/userFunction'
 
 const login = () => {
   let [formState, setFormState] = useState({
-    email: "",
-    password: "",
-  });
+    email: '',
+    password: '',
+  })
 
-  let [loginFailed, setLoginFailed] = useState("");
+  let [loginFailed, setLoginFailed] = useState('')
 
   const authUser = useContext(authContext)
 
@@ -23,12 +23,14 @@ const login = () => {
   }
 
   return (
+    <div className="flex flex-col h-screen">
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
       <Layout login>
-    <div className="flex flex-col">
-        <div class="">
         <div
-          class="m-auto relative"
-          style={{ width: "40%", fontFamily: "Quark-Bold", fontSize: "36px" }}
+          class="m-auto relative mb-16 pb-16"
+          style={{ width: '40%', fontFamily: 'Quark-Bold', fontSize: '36px' }}
         >
           <p className="items-center mt-2">{loginFailed}</p>
           <p
@@ -124,19 +126,10 @@ const login = () => {
               </div>
             </div>
           </form>
-        </div></div>
-    </div>
+        </div>
       </Layout>
-  );
-};
+    </div>
+  )
+}
 
-export default login;
-
-// export async function getStaticProps() {
-//   let user = await getUserData()
-//   return {
-//     props: {
-//       user,
-//     },
-//   }
-// }
+export default login
