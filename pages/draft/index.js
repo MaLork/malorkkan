@@ -13,7 +13,7 @@ export default function draft() {
   const user = useContext(authContext)
 
   return (
-    <Layout username={user.displayName} className="h-full">
+    <Layout username={user.displayName} admin={user.admin} className="h-full">
       <div className="flex h-screen flex-col">
         <h1>Create a post</h1>
         <div className="flex justify-center items-center h-full flex-col text-2xl">
@@ -25,6 +25,12 @@ export default function draft() {
                 alert('Please Login First!')
                 return
               }
+
+              if (valueTopic.length === 0) {
+                alert("Topic can't be empty")
+                return
+              }
+
               const res = await postForum(
                 user.displayName,
                 valueDesc,
