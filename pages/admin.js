@@ -1,5 +1,5 @@
 import ThumbnailPost from '../components/ThumbnailPost'
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import Layout from '../components/Layout.js'
 import { apiEndPoint } from '../lib/constant'
 import { authContext } from '../lib/userContext'
