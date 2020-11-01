@@ -1,74 +1,46 @@
 @font-face {
-    font-family: "Mitr";
+    font-family: "Mitr-Medium";
     src: url("/fonts/mitr/Mitr-Medium.ttf");
-    font-style: normal;
-    font-weight: 500;
-    font-display: swap;
 }
 @font-face {
     font-family: "Mitr-Light";
     src: url("/fonts/mitr/Mitr-Light.ttf");
-    font-style: normal;
-    font-weight: 300;
-    font-display: swap;
 }
 @font-face {
-    font-family: "Mitr-Normal";
+    font-family: "Mitr-Regular";
     src: url("/fonts/mitr/Mitr-Regular.ttf");
-    font-style: normal;
-    font-weight: 300;
-    font-display: swap;
 }
 @font-face {
     font-family: "Quark-Bold";
     src: url("/fonts/Quark/Quark-Bold.otf");
-    font-style: normal;
-    font-weight: 700;
-    font-display: swap;
 }
 @font-face {
     font-family: "Quark-Light";
     src: url("/fonts/Quark/Quark-Light.otf");
-    font-style: normal;
-    font-weight: 700;
-    font-display: swap;
 }
 @font-face {
     font-family: "Priyati";
     src: url("/fonts/Priyati/Priyati-Regular.ttf");
-    font-style: normal;
-    font-weight: 700;
-    font-display: swap;
 }
 @font-face {
     font-family: "Lato-Light";
     src: url("/fonts/Lato/Lato-Light.ttf");
-    font-style: normal;
-    font-weight: 700;
-    font-display: swap;
 }
-
+@font-face {
+    font-family: "Lato-Regular";
+    src: url("/fonts/Lato/Lato-Regular.ttf");
+}
 @font-face {
     font-family: "Lato-Medium";
     src: url("/fonts/Lato/Lato-Medium.ttf");
-    font-style: normal;
-    font-weight: 700;
-    font-display: swap;
 }
 
 @font-face {
     font-family: "Lato-Bold";
     src: url("/fonts/Lato/Lato-Bold.ttf");
-    font-style: normal;
-    font-weight: 700;
-    font-display: swap;
 }
 
 @font-face {
     font-family: "Roboto-Regular";
     src: url("/fonts/Roboto/Roboto-Regular.ttf");
-
-    font-style: normal;
-    font-weight: 700;
-    font-display: swap;
 }

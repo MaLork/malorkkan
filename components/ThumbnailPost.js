@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Share from "../components/Share.js";
-import Const from "../lib/constants.js";
+import {url,apiEndPoint,month} from "../lib/constant.js";
 export default function ThumbnailPost({ data, status, width, admin }) {
   const [display, setDisplay] = useState("hidden");
   const [stat, setStat] = useState(status);
@@ -11,7 +11,7 @@ export default function ThumbnailPost({ data, status, width, admin }) {
       <Share
         topic={data.topic}
         link={
-          Const.url +
+          url +
           "/" +
           (stat == null
             ? "post/" + data.id
@@ -20,7 +20,7 @@ export default function ThumbnailPost({ data, status, width, admin }) {
             : "pending/" + data.id)
         }
         display={display}
-        setDispaly={setDisplay}
+        setDisplay={setDisplay}
       ></Share>
       <div class="pt-4">
         <div class="relative my-1 pr-2 flex items-center">
@@ -74,7 +74,7 @@ export default function ThumbnailPost({ data, status, width, admin }) {
                       class={"inline " + (stat ? "" : "ml-8")}
                       style={{
                         color: "#8E8E8E",
-                        fontFamily: "Mitr",
+                        fontFamily: "Mitr-Medium",
                         fontSize: "18px",
                       }}
                     >
@@ -86,7 +86,7 @@ export default function ThumbnailPost({ data, status, width, admin }) {
                           class="inline ml-6 mr-2"
                           style={{
                             color: "#158D1A",
-                            fontFamily: "Mitr",
+                            fontFamily: "Mitr-Medium",
                             fontSize: "20px",
                           }}
                         >
@@ -105,10 +105,10 @@ export default function ThumbnailPost({ data, status, width, admin }) {
                   </div>
 
                   <p style={{ fontFamily: "Quark-Bold", fontSize: "18px" }}>
-                    {data.topic}
+                    {data.topic + (data.topic.length == 95 ? "..." : "")}
                   </p>
                   <p style={{ fontFamily: "Mitr-Light", fontSize: "12px" }}>
-                    {data.content + (data.content.length == 50 ? "..." : "")}
+                    {data.content + (data.content.length == 150 ? "..." : "")}
                   </p>
                 </a>
               </Link>
@@ -126,7 +126,7 @@ export default function ThumbnailPost({ data, status, width, admin }) {
               >
                 <a
                   class="mr-2"
-                  style={{ fontFamily: "Mitr", fontSize: 12, color: "#AB3B61" }}
+                  style={{ fontFamily: "Mitr-Medium", fontSize: 12, color: "#AB3B61" }}
                 >
                 <img class = "inline" src = "../images/commentIcon.svg" style={{width:15,marginRight:4}}></img>
                   comment
@@ -135,7 +135,7 @@ export default function ThumbnailPost({ data, status, width, admin }) {
               <button
                 class="mr-2"
                 onClick={() => setDisplay("block")}
-                style={{ fontFamily: "Mitr", fontSize: 12, color: "#123D6A" }}
+                style={{ fontFamily: "Mitr-Medium", fontSize: 12, color: "#123D6A" }}
               >
                 <img class = "inline" src = "../images/shareIcon.svg" style={{width:15,marginRight:4}}></img>
                 share
@@ -150,7 +150,7 @@ export default function ThumbnailPost({ data, status, width, admin }) {
               >
                 {date.getDate() +
                   " " +
-                  Const.month[date.getMonth()] +
+                  month[date.getMonth()] +
                   " " +
                   date.getFullYear() +
                   " " +
@@ -202,15 +202,13 @@ export default function ThumbnailPost({ data, status, width, admin }) {
 const update = async (id, approve, stat, updateStat,data) => {
 
   
-  const res = await fetch(Const.api + "/pending/" + id, {
+  const res = await fetch(apiEndPoint + "/pending/" + id, {
     method: "PUT",
     headers: {
       "Content-type": "application/json; charset=UTF-8", // Indicates the content
     },
     body: JSON.stringify({ approve }),
   });
-  console.log(approve);
-  console.log(res);
   if (res.status == 200) {
     if (approve) {
       updateStat("accepted");  data.status="accepted"

@@ -11,13 +11,13 @@ export default function CommentHeader({ postData }) {
       </div>
       <p
         className="ml-2 font-medium"
-        style={{ fontFamily: 'Mitr', color: '#8E8E8E', marginTop: '0.125rem' }}
+        style={{ fontFamily: "Mitr-Medium", color: '#8E8E8E', marginTop: '0.125rem' }}
       >
         {postData.user}
       </p>
       <p
         className="ml-4 text-xs mt-1"
-        style={{ fontFamily: 'Lato', color: '#8E8E8E' }}
+        style={{ fontFamily: 'Lato-Regular', color: '#8E8E8E' }}
       >
         {getDateFromData(postData.time)}
       </p>

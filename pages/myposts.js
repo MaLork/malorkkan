@@ -2,7 +2,7 @@ import ThumbnailPost from '../components/ThumbnailPost'
 import React, { useState, useContext, useEffect } from 'react'
 import Layout from '../components/Layout.js'
 import Link from 'next/link'
-import Const from '../lib/constants'
+import {apiEndPoint} from '../lib/constant'
 import { authContext } from '../lib/userContext'
 
 let time = null
@@ -13,7 +13,7 @@ export default function myPost() {
   let username = useContext(authContext)
 
   useEffect(async () => {
-    const posts = await (await fetch(Const.api + '/pendings')).json()
+    const posts = await (await fetch(apiEndPoint+ '/pendings')).json()
     setPosts(posts)
   }, [username])
 

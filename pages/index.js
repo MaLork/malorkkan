@@ -1,6 +1,6 @@
 import ThumbnailPost from '../components/ThumbnailPost'
 import Layout from '../components/Layout.js'
-import Const from '../lib/constants'
+import {apiEndPoint} from '../lib/constant'
 import Link from 'next/link'
 import React, { useContext, useEffect, useState } from 'react'
 import { authContext } from '../lib/userContext'
@@ -8,7 +8,7 @@ import { authContext } from '../lib/userContext'
 export async function getStaticProps() {
   // const posts = await (await fetch("https://asia-east2-malork-kantoer.cloudfunctions.net/posts")).json()
   const post = await (
-    await fetch(Const.api + '/posts?page=1', {
+    await fetch(apiEndPoint + '/posts?page=1', {
       headers: {
         'Content-type': 'application/json; charset=UTF-8', // Indicates the content
       },
@@ -27,8 +27,8 @@ export default function myPost({ post }) {
   const [myPosts, setMyPosts] = useState(null)
 
   useEffect(async () => {
-    const myPosts = username.displayName
-      ? await (await fetch(Const.api + '/pendings')).json()
+    const myPosts = username
+      ? await (await fetch(apiEndPoint + '/pendings')).json()
       : null
 
     setMyPosts(myPosts)
@@ -88,7 +88,6 @@ export default function myPost({ post }) {
                 onClick={() => {
                   setPage(page + 1)
                   changePage(1, page, setPage, setPosts, posts)
-                  console.log(page)
                 }}
               >
                 <img
@@ -118,7 +117,6 @@ export default function myPost({ post }) {
                 </p>
               </a>
             </Link>
-            {pending.length > 0 ? (
               <div class="my-8 -ml-16" style={{ 'padding-left': '7.125rem' }}>
                 <div
                   class="border-b-2 border-black"
@@ -126,6 +124,9 @@ export default function myPost({ post }) {
                 >
                   Pending List
                 </div>
+            
+            {pending.length > 0 ? (  
+              <>
                 {pending.map((data) => (
                   <ThumbnailPost
                     data={data}
@@ -146,17 +147,27 @@ export default function myPost({ post }) {
                     more...
                   </a>
                 </Link>
+              </>
+            ) : (
+            <p
+            style={{
+              color: '#8E8E8E',
+              fontFamily: 'Lato-Medium',
+              fontSize: '18px',
+            }}
+          >Nothing here... Write some new post!</p>
+            )}
               </div>
-            ) : null}
 
-            {accepted.length > 0 ? (
+            
               <div class="my-8 -ml-16" style={{ 'padding-left': '7.125rem' }}>
                 <div
                   class="border-b-2 border-black"
                   style={{ fontFamily: 'Quark-Bold', fontSize: 36 }}
                 >
                   Approved List
-                </div>
+                </div>{accepted.length > 0 ? (
+                  <>
                 {accepted.map((data) => (
                   <ThumbnailPost
                     data={data}
@@ -177,10 +188,18 @@ export default function myPost({ post }) {
                     more...
                   </a>
                 </Link>
+                </>
+            ) : 
+            <p
+            style={{
+              color: '#8E8E8E',
+              fontFamily: 'Lato-Medium',
+              fontSize: '18px',
+            }}
+          >Please wait for admin approval</p>}
               </div>
-            ) : null}
 
-            {rejected.length > 0 ? (
+            
               <div class="my-8 -ml-16" style={{ 'padding-left': '7.125rem' }}>
                 <div
                   class="border-b-2 border-black"
@@ -188,6 +207,8 @@ export default function myPost({ post }) {
                 >
                   Rejected List
                 </div>
+                {rejected.length > 0 ? (
+                  <>
                 {rejected.map((data) => (
                   <ThumbnailPost
                     data={data}
@@ -207,9 +228,19 @@ export default function myPost({ post }) {
                   >
                     more...
                   </a>
-                </Link>
+                </Link></>
+            ) : (
+
+              <p
+              style={{
+                color: '#8E8E8E',
+                fontFamily: 'Lato-Medium',
+                fontSize: '18px',
+              }}
+            >Nothing have been rejected :)</p>
+
+            )}
               </div>
-            ) : null}
           </div>
         ) : null}
       </div>
@@ -218,17 +249,14 @@ export default function myPost({ post }) {
 }
 
 async function changePage(x, page, setPage, setPosts, posts) {
-  console.log(page)
-  const res = await fetch(Const.api + '/posts?page=' + (page + x), {
+  const res = await fetch(apiEndPoint + '/posts?page=' + (page + x), {
     headers: {
       'Content-type': 'application/json; charset=UTF-8', // Indicates the content
     },
   })
   if (res.status == 200) {
     const data = await res.json()
-    console.log(data)
     setPosts(data)
     setPage(page + x)
   }
-  console.log(posts)
 }
