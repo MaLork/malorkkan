@@ -1,67 +1,71 @@
-import ThumbnailPost from "../components/ThumbnailPost";
-import Layout from "../components/Layout.js";
-import Const from "../lib/constants";
-import Link from "next/link";
-import React, { useState } from "react";
+import ThumbnailPost from '../components/ThumbnailPost'
+import Layout from '../components/Layout.js'
+import Const from '../lib/constants'
+import Link from 'next/link'
+import React, { useContext, useEffect, useState } from 'react'
+import { authContext } from '../lib/userContext'
+
 export async function getStaticProps() {
   // const posts = await (await fetch("https://asia-east2-malork-kantoer.cloudfunctions.net/posts")).json()
   const post = await (
-    await fetch(Const.api + "/posts?page=1", {
+    await fetch(Const.api + '/posts?page=1', {
       headers: {
-        "Content-type": "application/json; charset=UTF-8", // Indicates the content
+        'Content-type': 'application/json; charset=UTF-8', // Indicates the content
       },
     })
-  ).json();
-  const username = "Test";
-  const myPosts = username
-    ? await (await fetch(Const.api + "/pendings")).json()
-    : null;
-  let accepted = [];
-  let pending = [];
-  let rejected = [];
-  if (username != null) {
-    myPosts.map((data) => {
-      if (data.status == "accepted" && accepted.length < 2) {
-        accepted.push(data);
-      } else if (data.status == "pending" && pending.length < 2) {
-        pending.push(data);
-      } else if (data.status == "rejected" && rejected.length < 2) {
-        rejected.push(data);
-      }
-    });
-  }
+  ).json()
 
   return {
     props: {
       post,
-      myPosts,
-      username,
-      accepted,
-      pending,
-      rejected,
     },
-  };
+  }
 }
-export default function myPost({
-  post,
-  myPosts,
-  username,
-  pending,
-  rejected,
-  accepted,
-}) {
-  const [page, setPage] = useState(1);
-  const [posts, setPosts] = useState(post);
+
+export default function myPost({ post }) {
+  let username = useContext(authContext).user
+  const [myPosts, setMyPosts] = useState(null)
+
+  useEffect(async () => {
+    const myPosts = username
+      ? await (await fetch(Const.api + '/pendings')).json()
+      : null
+
+    setMyPosts(myPosts)
+  }, [username])
+
+  let accepted = []
+  let pending = []
+  let rejected = []
+
+  if (username) {
+    username = username.displayName
+  }
+
+  if (username !== null && myPosts !== null) {
+    myPosts.map((data) => {
+      if (data.status == 'accepted' && accepted.length < 2) {
+        accepted.push(data)
+      } else if (data.status == 'pending' && pending.length < 2) {
+        pending.push(data)
+      } else if (data.status == 'rejected' && rejected.length < 2) {
+        rejected.push(data)
+      }
+    })
+  }
+
+  const [page, setPage] = useState(1)
+  const [posts, setPosts] = useState(post)
   return (
     <Layout username={username}>
       <img src="/images/SpaceWallpaper.jpg"></img>
       <div class="flex">
         <div class="inline mb-4">
-          <div class="my-8" style={{ "padding-left": "7.125rem" }}>
+          <div class="my-8" style={{ 'padding-left': '7.125rem' }}>
             {posts.map((data) => (
               <ThumbnailPost
                 data={data}
-                width={username ? "40vw" : "80vw"}
+                width={username ? '40vw' : '80vw'}
               ></ThumbnailPost>
             ))}
           </div>
@@ -70,8 +74,8 @@ export default function myPost({
               <button
                 class="focus:outline-none inline"
                 onClick={() => {
-                  setPage(page - 1);
-                  changePage(-1, page, setPage, setPosts, posts);
+                  setPage(page - 1)
+                  changePage(-1, page, setPage, setPosts, posts)
                 }}
               >
                 <img
@@ -85,9 +89,9 @@ export default function myPost({
               <button
                 class="focus:outline-none inline"
                 onClick={() => {
-                  setPage(page + 1);
-                  changePage(1, page, setPage, setPosts, posts);
-                  console.log(page);
+                  setPage(page + 1)
+                  changePage(1, page, setPage, setPosts, posts)
+                  console.log(page)
                 }}
               >
                 <img
@@ -103,14 +107,14 @@ export default function myPost({
             <Link href="/draft">
               <a
                 class="absolute right-0 bg-white rounded-xl px-4"
-                style={{ height: 42, transform: "translate(-60px,32px)" }}
+                style={{ height: 42, transform: 'translate(-60px,32px)' }}
               >
                 <p
                   style={{
-                    fontFamily: "Priyati",
+                    fontFamily: 'Priyati',
                     fontSize: 48,
-                    color: "#158D1A",
-                    transform: "translate(0,-15%)",
+                    color: '#158D1A',
+                    transform: 'translate(0,-15%)',
                   }}
                 >
                   Write Post
@@ -118,10 +122,10 @@ export default function myPost({
               </a>
             </Link>
             {pending.length > 0 ? (
-              <div class="my-8 -ml-16" style={{ "padding-left": "7.125rem" }}>
+              <div class="my-8 -ml-16" style={{ 'padding-left': '7.125rem' }}>
                 <div
                   class="border-b-2 border-black"
-                  style={{ fontFamily: "Quark-Bold", fontSize: 36 }}
+                  style={{ fontFamily: 'Quark-Bold', fontSize: 36 }}
                 >
                   Pending List
                 </div>
@@ -137,9 +141,9 @@ export default function myPost({
                   <a
                     class="-mt-4 float-right"
                     style={{
-                      fontFamily: "Quark-Bold",
+                      fontFamily: 'Quark-Bold',
                       fontSize: 24,
-                      color: "#8E8E8E",
+                      color: '#8E8E8E',
                     }}
                   >
                     more...
@@ -149,10 +153,10 @@ export default function myPost({
             ) : null}
 
             {accepted.length > 0 ? (
-              <div class="my-8 -ml-16" style={{ "padding-left": "7.125rem" }}>
+              <div class="my-8 -ml-16" style={{ 'padding-left': '7.125rem' }}>
                 <div
                   class="border-b-2 border-black"
-                  style={{ fontFamily: "Quark-Bold", fontSize: 36 }}
+                  style={{ fontFamily: 'Quark-Bold', fontSize: 36 }}
                 >
                   Approved List
                 </div>
@@ -168,9 +172,9 @@ export default function myPost({
                   <a
                     class="-mt-4 float-right"
                     style={{
-                      fontFamily: "Quark-Bold",
+                      fontFamily: 'Quark-Bold',
                       fontSize: 24,
-                      color: "#8E8E8E",
+                      color: '#8E8E8E',
                     }}
                   >
                     more...
@@ -180,10 +184,10 @@ export default function myPost({
             ) : null}
 
             {rejected.length > 0 ? (
-              <div class="my-8 -ml-16" style={{ "padding-left": "7.125rem" }}>
+              <div class="my-8 -ml-16" style={{ 'padding-left': '7.125rem' }}>
                 <div
                   class="border-b-2 border-black"
-                  style={{ fontFamily: "Quark-Bold", fontSize: 36 }}
+                  style={{ fontFamily: 'Quark-Bold', fontSize: 36 }}
                 >
                   Rejected List
                 </div>
@@ -199,9 +203,9 @@ export default function myPost({
                   <a
                     class="-mt-4 float-right"
                     style={{
-                      fontFamily: "Quark-Bold",
+                      fontFamily: 'Quark-Bold',
                       fontSize: 24,
-                      color: "#8E8E8E",
+                      color: '#8E8E8E',
                     }}
                   >
                     more...
@@ -213,21 +217,21 @@ export default function myPost({
         ) : null}
       </div>
     </Layout>
-  );
+  )
 }
 
 async function changePage(x, page, setPage, setPosts, posts) {
-  console.log(page);
-  const res = await fetch(Const.api + "/posts?page=" + (page + x), {
+  console.log(page)
+  const res = await fetch(Const.api + '/posts?page=' + (page + x), {
     headers: {
-      "Content-type": "application/json; charset=UTF-8", // Indicates the content
+      'Content-type': 'application/json; charset=UTF-8', // Indicates the content
     },
-  });
+  })
   if (res.status == 200) {
-    const data = await res.json();
-    console.log(data);
-    setPosts(data);
-    setPage(page + x);
+    const data = await res.json()
+    console.log(data)
+    setPosts(data)
+    setPage(page + x)
   }
-  console.log(posts);
+  console.log(posts)
 }
