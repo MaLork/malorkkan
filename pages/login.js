@@ -42,7 +42,6 @@ const login = () => {
           <form
             onSubmit={async (e) => {
               e.preventDefault()
-
               const response = await loginUser(
                 formState.email,
                 formState.password
