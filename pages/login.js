@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import Link from 'next/link'
 import router from 'next/router'
 import style from '../styles/register.module.css'
@@ -134,12 +134,3 @@ const login = () => {
 }
 
 export default login
-
-// export async function getStaticProps() {
-//   let user = await getUserData()
-//   return {
-//     props: {
-//       user,
-//     },
-//   }
-// }

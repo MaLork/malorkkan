@@ -25,6 +25,12 @@ export default function draft() {
                 alert('Please Login First!')
                 return
               }
+
+              if (valueTopic.length === 0) {
+                alert("Topic can't be empty")
+                return
+              }
+
               const res = await postForum(
                 user.displayName,
                 valueDesc,

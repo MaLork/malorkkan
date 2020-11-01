@@ -20,7 +20,11 @@ const Post = ({ postData, commentData, id }) => {
 
   return (
     <>
-      <Layout username={user.displayName} className="flex flex-col h-screen">
+      <Layout
+        username={user.displayName}
+        admin={user.admin}
+        className="flex flex-col h-screen"
+      >
         <div
           className="container mx-auto flex content-center flow-root w-1/2 rounded py-2 mt-8 mb-16 pt-4"
           style={{ backgroundColor: '#FFF4EE' }}
