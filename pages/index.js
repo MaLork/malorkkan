@@ -1,6 +1,6 @@
 import ThumbnailPost from '../components/ThumbnailPost'
 import Layout from '../components/Layout.js'
-import {apiEndPoint} from '../lib/constant'
+import { apiEndPoint } from '../lib/constant'
 import Link from 'next/link'
 import React, { useContext, useEffect, useState } from 'react'
 import { authContext } from '../lib/userContext'
@@ -117,130 +117,135 @@ export default function myPost({ post }) {
                 </p>
               </a>
             </Link>
-              <div class="my-8 -ml-16" style={{ 'padding-left': '7.125rem' }}>
-                <div
-                  class="border-b-2 border-black"
-                  style={{ fontFamily: 'Quark-Bold', fontSize: 36 }}
-                >
-                  Pending List
-                </div>
-            
-            {pending.length > 0 ? (  
-              <>
-                {pending.map((data) => (
-                  <ThumbnailPost
-                    data={data}
-                    width="40vw"
-                    status={data.status}
-                  ></ThumbnailPost>
-                ))}
-
-                <Link href="/myposts">
-                  <a
-                    class="-mt-4 float-right"
-                    style={{
-                      fontFamily: 'Quark-Bold',
-                      fontSize: 24,
-                      color: '#8E8E8E',
-                    }}
-                  >
-                    more...
-                  </a>
-                </Link>
-              </>
-            ) : (
-            <p
-            style={{
-              color: '#8E8E8E',
-              fontFamily: 'Lato-Medium',
-              fontSize: '18px',
-            }}
-          >Nothing here... Write some new post!</p>
-            )}
+            <div class="my-8 -ml-16" style={{ 'padding-left': '7.125rem' }}>
+              <div
+                class="border-b-2 border-black"
+                style={{ fontFamily: 'Quark-Bold', fontSize: 36 }}
+              >
+                Pending List
               </div>
 
-            
-              <div class="my-8 -ml-16" style={{ 'padding-left': '7.125rem' }}>
-                <div
-                  class="border-b-2 border-black"
-                  style={{ fontFamily: 'Quark-Bold', fontSize: 36 }}
-                >
-                  Approved List
-                </div>{accepted.length > 0 ? (
-                  <>
-                {accepted.map((data) => (
-                  <ThumbnailPost
-                    data={data}
-                    width="40vw"
-                    status={data.status}
-                  ></ThumbnailPost>
-                ))}
+              {pending.length > 0 ? (
+                <>
+                  {pending.map((data) => (
+                    <ThumbnailPost
+                      data={data}
+                      width="40vw"
+                      status={data.status}
+                    ></ThumbnailPost>
+                  ))}
 
-                <Link href="/myposts">
-                  <a
-                    class="-mt-4 float-right"
-                    style={{
-                      fontFamily: 'Quark-Bold',
-                      fontSize: 24,
-                      color: '#8E8E8E',
-                    }}
-                  >
-                    more...
-                  </a>
-                </Link>
+                  <Link href="/myposts">
+                    <a
+                      class="-mt-4 float-right"
+                      style={{
+                        fontFamily: 'Quark-Bold',
+                        fontSize: 24,
+                        color: '#8E8E8E',
+                      }}
+                    >
+                      more...
+                    </a>
+                  </Link>
                 </>
-            ) : 
-            <p
-            style={{
-              color: '#8E8E8E',
-              fontFamily: 'Lato-Medium',
-              fontSize: '18px',
-            }}
-          >Please wait for admin approval</p>}
-              </div>
-
-            
-              <div class="my-8 -ml-16" style={{ 'padding-left': '7.125rem' }}>
-                <div
-                  class="border-b-2 border-black"
-                  style={{ fontFamily: 'Quark-Bold', fontSize: 36 }}
+              ) : (
+                <p
+                  style={{
+                    color: '#8E8E8E',
+                    fontFamily: 'Lato-Medium',
+                    fontSize: '18px',
+                  }}
                 >
-                  Rejected List
-                </div>
-                {rejected.length > 0 ? (
-                  <>
-                {rejected.map((data) => (
-                  <ThumbnailPost
-                    data={data}
-                    width="40vw"
-                    status={data.status}
-                  ></ThumbnailPost>
-                ))}
+                  Nothing here... Write some new post!
+                </p>
+              )}
+            </div>
 
-                <Link href="/myposts">
-                  <a
-                    class="-mt-4 float-right"
-                    style={{
-                      fontFamily: 'Quark-Bold',
-                      fontSize: 24,
-                      color: '#8E8E8E',
-                    }}
-                  >
-                    more...
-                  </a>
-                </Link></>
-            ) : (
-
-              <p
-              style={{
-                color: '#8E8E8E',
-                fontFamily: 'Lato-Medium',
-                fontSize: '18px',
-              }}
-            >Nothing have been rejected :)</p>
-
-            )}
+            <div class="my-8 -ml-16" style={{ 'padding-left': '7.125rem' }}>
+              <div
+                class="border-b-2 border-black"
+                style={{ fontFamily: 'Quark-Bold', fontSize: 36 }}
+              >
+                Approved List
               </div>
+              {accepted.length > 0 ? (
+                <>
+                  {accepted.map((data) => (
+                    <ThumbnailPost
+                      data={data}
+                      width="40vw"
+                      status={data.status}
+                    ></ThumbnailPost>
+                  ))}
+
+                  <Link href="/myposts">
+                    <a
+                      class="-mt-4 float-right"
+                      style={{
+                        fontFamily: 'Quark-Bold',
+                        fontSize: 24,
+                        color: '#8E8E8E',
+                      }}
+                    >
+                      more...
+                    </a>
+                  </Link>
+                </>
+              ) : (
+                <p
+                  style={{
+                    color: '#8E8E8E',
+                    fontFamily: 'Lato-Medium',
+                    fontSize: '18px',
+                  }}
+                >
+                  Please wait for admin approval
+                </p>
+              )}
+            </div>
+
+            <div class="my-8 -ml-16" style={{ 'padding-left': '7.125rem' }}>
+              <div
+                class="border-b-2 border-black"
+                style={{ fontFamily: 'Quark-Bold', fontSize: 36 }}
+              >
+                Rejected List
+              </div>
+              {rejected.length > 0 ? (
+                <>
+                  {rejected.map((data) => (
+                    <ThumbnailPost
+                      data={data}
+                      width="40vw"
+                      status={data.status}
+                    ></ThumbnailPost>
+                  ))}
+
+                  <Link href="/myposts">
+                    <a
+                      class="-mt-4 float-right"
+                      style={{
+                        fontFamily: 'Quark-Bold',
+                        fontSize: 24,
+                        color: '#8E8E8E',
+                      }}
+                    >
+                      more...
+                    </a>
+                  </Link>
+                </>
+              ) : (
+                <p
+                  style={{
+                    color: '#8E8E8E',
+                    fontFamily: 'Lato-Medium',
+                    fontSize: '18px',
+                  }}
+                >
+                  Nothing have been rejected :)
+                </p>
+              )}
+            </div>
           </div>
         ) : null}
       </div>
