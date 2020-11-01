@@ -12,7 +12,7 @@ export default function draft() {
   const user = useContext(authContext).user
 
   return (
-    <Layout username={authUser.email} className="h-full">
+    <Layout username={user.email} className="h-full">
       <div className="flex h-screen flex-col">
         <h1>Create a post</h1>
         <div className="flex justify-center items-center h-full flex-col text-2xl">
