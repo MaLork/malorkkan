@@ -1,6 +1,8 @@
 import Layout from '../../components/Layout.js'
 import style from '../../styles/register.module.css'
 import React, { useState } from 'react'
+import router from 'next/router'
+import { apiEndPoint, firebase } from '../../lib/constant'
 export default function register(){
     const[user, setUser]=useState("")
     const[email, setEmail]=useState("")
@@ -37,33 +39,66 @@ export default function register(){
     )
 }
 
-const validate =(user,setUser,email,setEmail,pass,setPass,confirmPass,setConfirmPass,errorMessage,setErrorMessage)=>{
-    if (email==""){
-        setErrorMessage("Enter email")
+const validate = async (
+  user,
+  setUser,
+  email,
+  setEmail,
+  pass,
+  setPass,
+  confirmPass,
+  setConfirmPass,
+  errorMessage,
+  setErrorMessage
+) => {
+  if (email == '') {
+    setErrorMessage('Enter email')
+  } else if (pass == '') {
+    setErrorMessage('Enter password')
+  } else if (confirmPass == '') {
+    setErrorMessage('Enter confirm password')
+  } else if (user == '') {
+    setErrorMessage('Enter Display name')
+  } else if (pass.length < 6) {
+    setErrorMessage('Password must be at least 6 characters')
+  } else if (pass != confirmPass) {
+    setErrorMessage("Password didn't match")
+  } else if (!isEmailValid(email)) {
+    setErrorMessage("Email doesn't valid")
+  } else {
+    setErrorMessage('')
+    const res = await firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, pass)
+      .then((response) => {
+        return response.user
+      })
+      .catch((error) => {
+        setErrorMessage(error.message)
+        return null
+      })
+    if (res) {
+      res.updateProfile({
+        displayName: user,
+      })
+      const authToken = await firebase.auth().currentUser.getIdToken()
+      const body = {
+        user,
+      }
+      await fetch(`${apiEndPoint}/user/signup`, {
+        method: 'POST',
+        body: JSON.stringify(body),
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${authToken}`,
+        },
+      })
+      await firebase.auth().signOut()
+      return 'Success'
+    } else {
+      return 'Error'
     }
-    else if (pass==""){
-        setErrorMessage("Enter password")
-    }
-    else if (confirmPass==""){
-        setErrorMessage("Enter confirm password")
-    }
-    else if (user==""){
-        setErrorMessage("Enter Display name")
-    }
-    else if (pass.length<6){
-        setErrorMessage("Password must be at least 6 characters")
-    }
-    else if (pass!=confirmPass){
-        setErrorMessage("Password didn't match")
-    }
-    else if (!isEmailValid(email)){
-        setErrorMessage("Email doesn't valid")
-    }
-    else{
-        setErrorMessage("")
-        //submit here
-    }
-}
+} }
 const isEmailValid=(email)=>{
     if (email.indexOf("@")==-1){
         return 0

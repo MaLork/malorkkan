@@ -1,11 +1,11 @@
-import { useContext, useEffect, useState } from "react";
-import Link from "next/link";
-import router from "next/router";
-import style from "../styles/register.module.css";
-import Head from "next/head";
-import Layout from "../components/Layout";
-import { authContext } from "../lib/userContext";
-import { loginUser } from "../lib/userFunction";
+import { useContext, useEffect, useState } from 'react'
+import Link from 'next/link'
+import router from 'next/router'
+import style from '../styles/register.module.css'
+import Head from 'next/head'
+import Layout from '../components/Layout'
+import { authContext } from '../lib/userContext'
+import { loginUser } from '../lib/userFunction'
 
 const login = () => {
   let [formState, setFormState] = useState({
@@ -15,11 +15,11 @@ const login = () => {
 
   let [loginFailed, setLoginFailed] = useState("");
 
-  const authUser = useContext(authContext).user;
+  const authUser = useContext(authContext)
 
-  if (authUser) {
-    router.push("/", undefined, { shallow: true });
-    return null;
+  if (authUser.displayName) {
+    router.push('/', undefined, { shallow: true })
+    return null
   }
 
   return (
@@ -33,25 +33,25 @@ const login = () => {
           <p className="items-center mt-2">{loginFailed}</p>
           <p
             class="mt-6 mb-2"
-            style={{ fontFamily: "Roboto-Regular", fontSize: "60px" }}
+            style={{ fontFamily: 'Roboto-Regular', fontSize: '60px' }}
           >
             Ma-lork together!
           </p>
           <form
             onSubmit={async (e) => {
-              e.preventDefault();
-
-              const status = await loginUser(
+              e.preventDefault()
+              const response = await loginUser(
                 formState.email,
                 formState.password
-              );
+              )
+              console.log(response)
 
-              if (status === "Success") {
-                router.push("/", undefined, { shallow: true });
-                return;
+              if (response === 200) {
+                router.push('/', undefined, { shallow: true })
+                return
               }
 
-              setLoginFailed(status.message);
+              setLoginFailed(response.message)
             }}
           >
             <div>
@@ -86,14 +86,14 @@ const login = () => {
               <div class="pt-4 flex absolute left-0">
                 <p
                   className="pr-2"
-                  style={{ fontFamily: "Quark-Bold", fontSize: "14px" }}
+                  style={{ fontFamily: 'Quark-Bold', fontSize: '14px' }}
                 >
                   Forget password?
                 </p>
                 <Link href="/contacts">
                   <a
                     className="text-blue-600 hover:underline pr-32"
-                    style={{ fontFamily: "Quark-Bold", fontSize: "14px" }}
+                    style={{ fontFamily: 'Quark-Bold', fontSize: '14px' }}
                   >
                     Contact Us
                   </a>
@@ -103,7 +103,7 @@ const login = () => {
                 <Link href="/register">
                   <a
                     className="hover:underline inline-block"
-                    style={{ fontFamily: "Quark-Bold", fontSize: "14px" }}
+                    style={{ fontFamily: 'Quark-Bold', fontSize: '14px' }}
                   >
                     Register
                   </a>
@@ -112,11 +112,11 @@ const login = () => {
                   type="submit"
                   value="Submit"
                   className="ml-4 inline-block rounded-lg"
-                  style={{ backgroundColor: "#52C587" }}
+                  style={{ backgroundColor: '#52C587' }}
                 >
                   <p
                     class="text-center px-2 text-white select-none cursor-pointer"
-                    style={{ fontFamily: "Mitr-Light", fontSize: "24px" }}
+                    style={{ fontFamily: 'Mitr-Light', fontSize: '24px' }}
                   >
                     Login
                   </p>

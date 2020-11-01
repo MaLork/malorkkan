@@ -18,7 +18,7 @@ const Post = ({ postData, commentData, id }) => {
   const [content, setContent] = useState('')
   const [display, setDisplay] = useState("hidden");
 
-  const user = useContext(authContext).user
+  const user = useContext(authContext)
 
   return (
     <>
@@ -85,10 +85,9 @@ const Post = ({ postData, commentData, id }) => {
               className="rounded bg-green-500 hover:bg-green-700 text-white bold px-4 py-1"
               onClick={async () => {
                 if (!user) {
-                  alert('Please Login first')
+                  alert('Please Login first!')
                   return
                 }
-                //Temporary user.email
                 const res = await postComment(user.displayName, content, id)
                 if (res.status === 200) {
                   router.reload()
