@@ -17,9 +17,7 @@ const login = () => {
 
   const authUser = useContext(authContext)
 
-  console.log(authUser)
-
-  if (authUser) {
+  if (authUser.displayName) {
     router.push('/', undefined, { shallow: true })
     return null
   }

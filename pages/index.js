@@ -27,7 +27,7 @@ export default function myPost({ post }) {
   const [myPosts, setMyPosts] = useState(null)
 
   useEffect(async () => {
-    const myPosts = username
+    const myPosts = username.displayName
       ? await (await fetch(Const.api + '/pendings')).json()
       : null
 
@@ -99,7 +99,7 @@ export default function myPost({ post }) {
             )}
           </div>
         </div>
-        {username ? (
+        {username.displayName ? (
           <div class="inline mt-4">
             <Link href="/draft">
               <a
