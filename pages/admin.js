@@ -1,9 +1,9 @@
 import ThumbnailPost from "../components/ThumbnailPost";
 import React, { useState } from "react";
 import Layout from "../components/Layout.js";
-import Const from "../lib/constants.js";
+import {apiEndPoint} from "../lib/constants.j";
 export async function getStaticProps() {
-  const posts = await (await fetch(Const.api + "/pendings")).json();
+  const posts = await (await fetch(apiEndPoint+ "/pendings")).json();
   // const posts = await (await fetch("http://localhost:3000/api/pendings")).json()
   const username = "username";
   return {

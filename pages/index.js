@@ -1,6 +1,6 @@
 import ThumbnailPost from '../components/ThumbnailPost'
 import Layout from '../components/Layout.js'
-import Const from '../lib/constants'
+import {apiEndPoint} from '../lib/constant'
 import Link from 'next/link'
 import React, { useContext, useEffect, useState } from 'react'
 import { authContext } from '../lib/userContext'
@@ -8,7 +8,7 @@ import { authContext } from '../lib/userContext'
 export async function getStaticProps() {
   // const posts = await (await fetch("https://asia-east2-malork-kantoer.cloudfunctions.net/posts")).json()
   const post = await (
-    await fetch(Const.api + '/posts?page=1', {
+    await fetch(apiEndPoint + '/posts?page=1', {
       headers: {
         'Content-type': 'application/json; charset=UTF-8', // Indicates the content
       },
@@ -28,7 +28,7 @@ export default function myPost({ post }) {
 
   useEffect(async () => {
     const myPosts = username
-      ? await (await fetch(Const.api + '/pendings')).json()
+      ? await (await fetch(apiEndPoint + '/pendings')).json()
       : null
 
     setMyPosts(myPosts)
@@ -222,7 +222,7 @@ export default function myPost({ post }) {
 
 async function changePage(x, page, setPage, setPosts, posts) {
   console.log(page)
-  const res = await fetch(Const.api + '/posts?page=' + (page + x), {
+  const res = await fetch(apiEndPoint + '/posts?page=' + (page + x), {
     headers: {
       'Content-type': 'application/json; charset=UTF-8', // Indicates the content
     },

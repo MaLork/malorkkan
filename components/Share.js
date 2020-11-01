@@ -3,6 +3,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import React, { useState } from "react";
 export default function Share({ topic, link, display, setDisplay}) {
   const [copyMessage, setCopyMessage] = useState("Copy link");
+  console.log(setDisplay)
   return (
     <>
       <div
@@ -17,7 +18,7 @@ export default function Share({ topic, link, display, setDisplay}) {
         }}
         onClick={() => {
           setDisplay("hidden");
-          setCopyMessage("");
+          setCopyMessage("Copy link");
         }}
       ></div>
       <div
@@ -78,7 +79,7 @@ export default function Share({ topic, link, display, setDisplay}) {
                     paddingBottom: 5,
                     width: 157,
                     backgroundColor: "#52C587",
-                    fontFamily: "Mitr-Normal",
+                    fontFamily: "Mitr-Regular",
                     fontSize: 24,
                   }}
                   onClick={() => {
