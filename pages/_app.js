@@ -1,13 +1,13 @@
 import '../styles/globals.css'
 import '../styles/tailwind.css'
 import '../styles/fonts.css'
-import { FirebaseProvider } from '../lib/firebaseContext'
+import { ProvideAuth } from '../lib/userContext'
 
 function MyApp({ Component, pageProps }) {
   return (
-    <FirebaseProvider>
+    <ProvideAuth>
       <Component {...pageProps} />
-    </FirebaseProvider>
+    </ProvideAuth>
   )
 }
 

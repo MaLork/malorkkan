@@ -2,7 +2,9 @@ import ThumbnailPost from '../components/ThumbnailPost'
 import Layout from '../components/Layout.js'
 import Const from '../lib/constants'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { authContext } from '../lib/userContext'
+
 export async function getStaticProps() {
   // const posts = await (await fetch("https://asia-east2-malork-kantoer.cloudfunctions.net/posts")).json()
   const post = await (
@@ -12,14 +14,35 @@ export async function getStaticProps() {
       },
     })
   ).json()
-  const username = 'Test'
-  const myPosts = username
-    ? await (await fetch(Const.api + '/pendings')).json()
-    : null
+
+  return {
+    props: {
+      post,
+    },
+  }
+}
+
+export default function myPost({ post }) {
+  let username = useContext(authContext).user
+  const [myPosts, setMyPosts] = useState(null)
+
+  useEffect(async () => {
+    const myPosts = username
+      ? await (await fetch(Const.api + '/pendings')).json()
+      : null
+
+    setMyPosts(myPosts)
+  }, [username])
+
   let accepted = []
   let pending = []
   let rejected = []
-  if (username != null) {
+
+  if (username) {
+    username = username.displayName
+  }
+
+  if (username !== null && myPosts !== null) {
     myPosts.map((data) => {
       if (data.status == 'accepted' && accepted.length < 2) {
         accepted.push(data)
@@ -31,25 +54,6 @@ export async function getStaticProps() {
     })
   }
 
-  return {
-    props: {
-      post,
-      myPosts,
-      username,
-      accepted,
-      pending,
-      rejected,
-    },
-  }
-}
-export default function myPost({
-  post,
-  myPosts,
-  username,
-  pending,
-  rejected,
-  accepted,
-}) {
   const [page, setPage] = useState(1)
   const [posts, setPosts] = useState(post)
   return (

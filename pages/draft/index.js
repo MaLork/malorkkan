@@ -3,24 +3,20 @@ import Link from 'next/link'
 import router from 'next/router'
 import Layout from '../../components/Layout'
 import { useContext } from 'react'
-import { FirebaseContext } from '../../lib/firebaseContext'
-import useFirebaseAuthentication from '../../lib/useFirebaseAuthentication'
+import { authContext } from '../../lib/userContext'
 
 export default function draft() {
   const [valueDesc, setValueDesc] = useState('')
   const [valueTopic, setValueTopic] = useState('')
 
-  const firebase = useContext(FirebaseContext)
-  const authUser = useFirebaseAuthentication(firebase)
-
-  console.log(authUser)
+  const user = useContext(authContext).user
 
   return (
     <Layout username={authUser.email} className="h-full">
       <div className="flex h-screen flex-col">
         <h1>Create a post</h1>
         <div className="flex justify-center items-center h-full flex-col text-2xl">
-          <div>
+          <form>
             <div>
               <p className="mb-4">Topic</p>
               <input
@@ -51,7 +47,7 @@ export default function draft() {
                 Create Question
               </button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </Layout>

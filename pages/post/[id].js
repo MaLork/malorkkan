@@ -2,27 +2,25 @@ import {
   retrievePostData,
   getPostById,
   getAllPathId,
-} from '../../lib/getData/retrievePostData'
-import { getCommentById } from '../../lib/getData/retrieveCommentData'
-import { postComment } from '../../lib/sendData/sendCommentData'
+} from '../../lib/getMethods/retrievePostData'
+import { getCommentById } from '../../lib/getMethods/retrieveCommentData'
+import { postComment } from '../../lib/sendMethods/sendCommentData'
 import MainPost from '../../components/postBlock/MainPost'
 import CommentPost from '../../components/postBlock/CommentPost'
 import Layout from '../../components/Layout'
-import { useContext, useState } from 'react'
-import { FirebaseContext } from '../../lib/firebaseContext'
-import useFirebaseAuthentication from '../../lib/useFirebaseAuthentication'
+import { useState, useContext } from 'react'
+import { authContext } from '../../lib/userContext'
 import router from 'next/router'
 
 const Post = ({ postData, commentData, id }) => {
   const commentSize = commentData.comments.length
   const [content, setContent] = useState('')
 
-  const firebase = useContext(FirebaseContext)
-  const authUser = useFirebaseAuthentication(firebase)
+  const user = useContext(authContext).user
 
   return (
     <>
-      <Layout username={authUser.email} className="flex flex-col h-screen">
+      <Layout username={user.displayName} className="flex flex-col h-screen">
         <div
           className="container mx-auto flex content-center flow-root w-1/2 rounded py-2 mt-8 mb-16 pt-4"
           style={{ backgroundColor: '#FFF4EE' }}
@@ -74,14 +72,14 @@ const Post = ({ postData, commentData, id }) => {
               type="submit"
               className="rounded bg-green-500 hover:bg-green-700 text-white bold px-4 py-1"
               onClick={async () => {
-                if (!authUser) {
+                if (!user) {
                   alert('Please Login first')
                   return
                 }
-                //Temporary authUser.email
-                const res = await postComment(authUser.email, content, id)
+                //Temporary user.email
+                const res = await postComment(user.email, content, id)
                 if (res.status === 200) {
-                  router.push(`/post/${id}`, undefined)
+                  router.reload()
                   setContent('')
                 }
                 console.log(res)
