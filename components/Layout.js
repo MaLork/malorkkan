@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Dropdown from './Dropdown.js'
 export default function Layout({ children, username, login, admin }) {
   return (
-    <div style={{minHeight:"100vh"}}>
+    <div class="relative"style={{minHeight:"100vh"}}>
       {login ? (
         <div
           class="block text-center"
@@ -109,7 +109,8 @@ export default function Layout({ children, username, login, admin }) {
           </div>
         </div>
       )}
-      {children}
+        {children}
+      <div class="pb-20"></div>
       <div
         class="pr-20 absolute right-0 bottom-0"
         style={{

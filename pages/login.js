@@ -23,13 +23,11 @@ const login = () => {
   }
 
   return (
-    <div className="flex flex-col h-screen">
-      <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
       <Layout login>
+    <div className="flex flex-col">
+        <div class="">
         <div
-          class="m-auto relative mb-16 pb-16"
+          class="m-auto relative"
           style={{ width: "40%", fontFamily: "Quark-Bold", fontSize: "36px" }}
         >
           <p className="items-center mt-2">{loginFailed}</p>
@@ -126,9 +124,9 @@ const login = () => {
               </div>
             </div>
           </form>
-        </div>
-      </Layout>
+        </div></div>
     </div>
+      </Layout>
   );
 };
 
