@@ -120,7 +120,6 @@ export default function myPost({ post }) {
                 </p>
               </a>
             </Link>
-            {pending.length > 0 ? (
               <div class="my-8 -ml-16" style={{ 'padding-left': '7.125rem' }}>
                 <div
                   class="border-b-2 border-black"
@@ -128,6 +127,9 @@ export default function myPost({ post }) {
                 >
                   Pending List
                 </div>
+            
+            {pending.length > 0 ? (  
+              <>
                 {pending.map((data) => (
                   <ThumbnailPost
                     data={data}
@@ -148,17 +150,27 @@ export default function myPost({ post }) {
                     more...
                   </a>
                 </Link>
+              </>
+            ) : (
+            <p
+            style={{
+              color: '#8E8E8E',
+              fontFamily: 'Lato-Medium',
+              fontSize: '18px',
+            }}
+          >Nothing here... Write some new post!</p>
+            )}
               </div>
-            ) : null}
 
-            {accepted.length > 0 ? (
+            
               <div class="my-8 -ml-16" style={{ 'padding-left': '7.125rem' }}>
                 <div
                   class="border-b-2 border-black"
                   style={{ fontFamily: 'Quark-Bold', fontSize: 36 }}
                 >
                   Approved List
-                </div>
+                </div>{accepted.length > 0 ? (
+                  <>
                 {accepted.map((data) => (
                   <ThumbnailPost
                     data={data}
@@ -179,10 +191,18 @@ export default function myPost({ post }) {
                     more...
                   </a>
                 </Link>
+                </>
+            ) : 
+            <p
+            style={{
+              color: '#8E8E8E',
+              fontFamily: 'Lato-Medium',
+              fontSize: '18px',
+            }}
+          >Please wait for admin approval</p>}
               </div>
-            ) : null}
 
-            {rejected.length > 0 ? (
+            
               <div class="my-8 -ml-16" style={{ 'padding-left': '7.125rem' }}>
                 <div
                   class="border-b-2 border-black"
@@ -190,6 +210,8 @@ export default function myPost({ post }) {
                 >
                   Rejected List
                 </div>
+                {rejected.length > 0 ? (
+                  <>
                 {rejected.map((data) => (
                   <ThumbnailPost
                     data={data}
@@ -209,9 +231,19 @@ export default function myPost({ post }) {
                   >
                     more...
                   </a>
-                </Link>
+                </Link></>
+            ) : (
+
+              <p
+              style={{
+                color: '#8E8E8E',
+                fontFamily: 'Lato-Medium',
+                fontSize: '18px',
+              }}
+            >Nothing have been rejected :)</p>
+
+            )}
               </div>
-            ) : null}
           </div>
         ) : null}
       </div>

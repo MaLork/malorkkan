@@ -105,10 +105,10 @@ export default function ThumbnailPost({ data, status, width, admin }) {
                   </div>
 
                   <p style={{ fontFamily: "Quark-Bold", fontSize: "18px" }}>
-                    {data.topic}
+                    {data.topic + (data.topic.length == 95 ? "..." : "")}
                   </p>
                   <p style={{ fontFamily: "Mitr-Light", fontSize: "12px" }}>
-                    {data.content + (data.content.length == 50 ? "..." : "")}
+                    {data.content + (data.content.length == 150 ? "..." : "")}
                   </p>
                 </a>
               </Link>

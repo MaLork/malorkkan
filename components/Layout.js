@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Dropdown from './Dropdown.js'
 export default function Layout({ children, username, login, admin }) {
   return (
-    <>
+    <div style={{minHeight:"100vh"}}>
       {login ? (
         <div
           class="block text-center"
@@ -111,9 +111,10 @@ export default function Layout({ children, username, login, admin }) {
       )}
       {children}
       <div
-        class="pr-20"
+        class="pr-20 absolute right-0 bottom-0"
         style={{
           height: '50px',
+          width:"100vw",
           'padding-left': '7.125rem',
           backgroundColor: '#F2F2F2',
         }}
@@ -131,6 +132,6 @@ export default function Layout({ children, username, login, admin }) {
           <p class="float-right">Malork Inc © 2020. All rights reserved</p>
         </div>
       </div>
-    </>
+    </div>
   )
 }
