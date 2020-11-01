@@ -2,7 +2,7 @@ import Layout from '../../components/Layout.js'
 import style from '../../styles/register.module.css'
 import React, { useState } from 'react'
 import router from 'next/router'
-import { firebase } from '../../lib/constant'
+import { apiEndPoint, firebase } from '../../lib/constant'
 
 export default function register() {
   const [user, setUser] = useState('')
@@ -75,7 +75,7 @@ export default function register() {
                 setErrorMessage
               )
               if (res === 'Success') {
-                router.replace('/')
+                router.replace('/register/complete')
               }
             }}
             class="ml-4 inline-block rounded-lg"
@@ -135,6 +135,18 @@ const validate = async (
     if (res) {
       res.updateProfile({
         displayName: user,
+      })
+      const authToken = await firebase.auth().currentUser.getIdToken()
+      const body = {
+        user,
+      }
+      await fetch(`${apiEndPoint}/user/signup`, {
+        method: 'POST',
+        body: JSON.stringify(body),
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${authToken}`,
+        },
       })
       await firebase.auth().signOut()
       return 'Success'

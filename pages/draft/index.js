@@ -4,19 +4,38 @@ import router from 'next/router'
 import Layout from '../../components/Layout'
 import { useContext } from 'react'
 import { authContext } from '../../lib/userContext'
+import { postForum } from '../../lib/sendMethods/sendPostData'
 
 export default function draft() {
   const [valueDesc, setValueDesc] = useState('')
   const [valueTopic, setValueTopic] = useState('')
 
-  const user = useContext(authContext).user
+  const user = useContext(authContext)
 
   return (
-    <Layout username={user.email} className="h-full">
+    <Layout username={user.displayName} className="h-full">
       <div className="flex h-screen flex-col">
         <h1>Create a post</h1>
         <div className="flex justify-center items-center h-full flex-col text-2xl">
-          <form>
+          <form
+            onSubmit={async (e) => {
+              e.preventDefault()
+
+              if (!user) {
+                alert('Please Login First!')
+                return
+              }
+              const res = await postForum(
+                user.displayName,
+                valueDesc,
+                valueTopic
+              )
+              if (res.status === 200) {
+                router.push('/draft/complete', undefined, { shallow: true })
+                return
+              }
+            }}
+          >
             <div>
               <p className="mb-4">Topic</p>
               <input

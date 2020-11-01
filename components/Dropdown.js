@@ -104,7 +104,6 @@ export default function Dropdown({ username, admin }) {
               .catch((error) => {
                 console.log(`Error: ${error.message}`)
               })
-            router.reload()
           }}
         >
           <div
