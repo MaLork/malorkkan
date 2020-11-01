@@ -23,11 +23,11 @@ export async function getStaticProps() {
 }
 
 export default function myPost({ post }) {
-  let username = useContext(authContext).user
+  let username = useContext(authContext)
   const [myPosts, setMyPosts] = useState(null)
 
   useEffect(async () => {
-    const myPosts = username
+    const myPosts = username.displayName
       ? await (await fetch(Const.api + '/pendings')).json()
       : null
 
@@ -37,10 +37,6 @@ export default function myPost({ post }) {
   let accepted = []
   let pending = []
   let rejected = []
-
-  if (username) {
-    username = username.displayName
-  }
 
   if (username !== null && myPosts !== null) {
     myPosts.map((data) => {
@@ -56,8 +52,9 @@ export default function myPost({ post }) {
 
   const [page, setPage] = useState(1)
   const [posts, setPosts] = useState(post)
+
   return (
-    <Layout username={username}>
+    <Layout username={username.displayName} admin={username.admin}>
       <img src="/images/SpaceWallpaper.jpg"></img>
       <div class="flex">
         <div class="inline mb-4">
@@ -102,7 +99,7 @@ export default function myPost({ post }) {
             )}
           </div>
         </div>
-        {username ? (
+        {username.displayName ? (
           <div class="inline mt-4">
             <Link href="/draft">
               <a

@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 import Link from 'next/link'
 import router from 'next/router'
+import style from '../styles/register.module.css'
 import Head from 'next/head'
 import Layout from '../components/Layout'
 import { authContext } from '../lib/userContext'
@@ -14,9 +15,9 @@ const login = () => {
 
   let [loginFailed, setLoginFailed] = useState('')
 
-  const authUser = useContext(authContext).user
+  const authUser = useContext(authContext)
 
-  if (authUser) {
+  if (authUser.displayName) {
     router.push('/', undefined, { shallow: true })
     return null
   }
@@ -27,34 +28,40 @@ const login = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <Layout login>
-        <div className="flex justify-center items-center flex-col text-xl h-full">
+        <div
+          class="m-auto relative mb-16 pb-16"
+          style={{ width: '40%', fontFamily: 'Quark-Bold', fontSize: '36px' }}
+        >
           <p className="items-center mt-2">{loginFailed}</p>
-          <p className="items-center mt-2 mb-4"> Login</p>
+          <p
+            class="mt-6 mb-2"
+            style={{ fontFamily: 'Roboto-Regular', fontSize: '60px' }}
+          >
+            Ma-lork together!
+          </p>
           <form
             onSubmit={async (e) => {
               e.preventDefault()
-
-              const status = await loginUser(
+              const response = await loginUser(
                 formState.email,
                 formState.password
               )
+              console.log(response)
 
-              if (status === 'Success') {
+              if (response === 200) {
                 router.push('/', undefined, { shallow: true })
                 return
               }
 
-              setLoginFailed(status.message)
+              setLoginFailed(response.message)
             }}
           >
             <div>
               <div>
-                <p htmlFor="email" className="mb-2">
-                  Email:{' '}
-                </p>
+                <p htmlFor="email">Email </p>
                 <input
                   type="text"
-                  className="mb-2"
+                  className={style.input}
                   onChange={(event) =>
                     setFormState({
                       email: event.target.value,
@@ -64,11 +71,10 @@ const login = () => {
                 ></input>
               </div>
               <div>
-                <p htmlFor="password" className="mb-2">
-                  Password:{' '}
-                </p>
+                <p htmlFor="password">Password </p>
                 <input
                   type="password"
+                  className={style.input}
                   onChange={(event) =>
                     setFormState({
                       email: formState.email,
@@ -78,25 +84,44 @@ const login = () => {
                 ></input>
               </div>
             </div>
-            <div className="flex">
-              <div className="flex pr-4 py-2">
-                <p className="pr-2">Forget password?</p>
+            <div className="flex items-center justify-center pt-8">
+              <div class="pt-4 flex absolute left-0">
+                <p
+                  className="pr-2"
+                  style={{ fontFamily: 'Quark-Bold', fontSize: '14px' }}
+                >
+                  Forget password?
+                </p>
                 <Link href="/contacts">
-                  <a className="text-blue-600 hover:underline pr-32">
+                  <a
+                    className="text-blue-600 hover:underline pr-32"
+                    style={{ fontFamily: 'Quark-Bold', fontSize: '14px' }}
+                  >
                     Contact Us
                   </a>
                 </Link>
               </div>
-              <div>
+              <div class="absolute right-0">
                 <Link href="/register">
-                  <a className="hover:underline pr-3">Register</a>
+                  <a
+                    className="hover:underline inline-block"
+                    style={{ fontFamily: 'Quark-Bold', fontSize: '14px' }}
+                  >
+                    Register
+                  </a>
                 </Link>
                 <button
                   type="submit"
                   value="Submit"
-                  className="bg-green-500 hover:bg-green-700 text-white font-bold rounded px-4 py-2"
+                  className="ml-4 inline-block rounded-lg"
+                  style={{ backgroundColor: '#52C587' }}
                 >
-                  Login
+                  <p
+                    class="text-center px-2 text-white select-none cursor-pointer"
+                    style={{ fontFamily: 'Mitr-Light', fontSize: '24px' }}
+                  >
+                    Login
+                  </p>
                 </button>
               </div>
             </div>
