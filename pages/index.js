@@ -91,7 +91,6 @@ export default function myPost({ post }) {
                 onClick={() => {
                   setPage(page + 1)
                   changePage(1, page, setPage, setPosts, posts)
-                  console.log(page)
                 }}
               >
                 <img
@@ -221,7 +220,6 @@ export default function myPost({ post }) {
 }
 
 async function changePage(x, page, setPage, setPosts, posts) {
-  console.log(page)
   const res = await fetch(apiEndPoint + '/posts?page=' + (page + x), {
     headers: {
       'Content-type': 'application/json; charset=UTF-8', // Indicates the content
@@ -229,9 +227,7 @@ async function changePage(x, page, setPage, setPosts, posts) {
   })
   if (res.status == 200) {
     const data = await res.json()
-    console.log(data)
     setPosts(data)
     setPage(page + x)
   }
-  console.log(posts)
 }

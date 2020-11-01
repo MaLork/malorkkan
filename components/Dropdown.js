@@ -140,6 +140,3 @@ export default function Dropdown({ username, admin }) {
     </>
   )
 }
-function logout() {
-  console.log('logout แบบหลอกๆแล้ว')
-}

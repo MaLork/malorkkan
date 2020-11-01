@@ -94,7 +94,6 @@ const Post = ({ postData, commentData, id }) => {
                   router.reload()
                   setContent('')
                 }
-                console.log(res)
               }}
             >
               {' '}

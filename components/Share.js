@@ -3,7 +3,6 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import React, { useState } from "react";
 export default function Share({ topic, link, display, setDisplay}) {
   const [copyMessage, setCopyMessage] = useState("Copy link");
-  console.log(setDisplay)
   return (
     <>
       <div

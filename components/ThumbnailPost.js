@@ -209,8 +209,6 @@ const update = async (id, approve, stat, updateStat,data) => {
     },
     body: JSON.stringify({ approve }),
   });
-  console.log(approve);
-  console.log(res);
   if (res.status == 200) {
     if (approve) {
       updateStat("accepted");  data.status="accepted"
