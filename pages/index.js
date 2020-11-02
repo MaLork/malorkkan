@@ -1,6 +1,6 @@
 import ThumbnailPost from '../components/ThumbnailPost'
 import Layout from '../components/Layout.js'
-import { apiEndPoint } from '../lib/constant'
+import { apiEndPoint, firebase } from '../lib/constant'
 import Link from 'next/link'
 import React, { useContext, useEffect, useState } from 'react'
 import { authContext } from '../lib/userContext'
@@ -24,21 +24,31 @@ export async function getStaticProps() {
 
 export default function myPost({ post }) {
   let username = useContext(authContext)
+
   const [myPosts, setMyPosts] = useState(null)
 
   useEffect(async () => {
-    const myPosts = username
-      ? await (await fetch(apiEndPoint + '/pendings')).json()
-      : null
-
-    setMyPosts(myPosts)
+    if (username.displayName) {
+      const tokenId = await firebase.auth().currentUser.getIdToken()
+      const myPosts = username.displayName
+        ? await (
+            await fetch(apiEndPoint + '/pendings', {
+              method: 'GET',
+              headers: {
+                Authorization: `Bearer ${tokenId}`,
+              },
+            })
+          ).json()
+        : null
+      setMyPosts(myPosts)
+    }
   }, [username])
 
   let accepted = []
   let pending = []
   let rejected = []
 
-  if (username !== null && myPosts !== null) {
+  if (username.displayName !== null && myPosts !== null) {
     myPosts.map((data) => {
       if (data.status == 'accepted' && accepted.length < 2) {
         accepted.push(data)

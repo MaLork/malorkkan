@@ -5,7 +5,7 @@ import { authContext } from '../../lib/userContext'
 export default function draftComplete() {
   const user = useContext(authContext)
   return (
-    <Layout username={user.displayName}>
+    <Layout username={user.displayName} admin={user.admin}>
       <div
         class="flex text-center items-center justify-center"
         style={{ height: '100%', minHeight: '71.7vh' }}
