@@ -90,7 +90,7 @@ const login = () => {
                   >
                     Forget password?
                   </p>
-                  <Link href="/contacts">
+                  <Link href="/about">
                     <a
                       className="text-blue-600 hover:underline pr-32"
                       style={{ fontFamily: 'Quark-Bold', fontSize: '14px' }}
