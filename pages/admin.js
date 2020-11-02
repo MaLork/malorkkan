@@ -1,7 +1,9 @@
 import ThumbnailPost from '../components/ThumbnailPost'
 import React, { useState, useContext, useEffect } from 'react'
+import router, { Router } from 'next/router'
+import Link from 'next/link'
 import Layout from '../components/Layout.js'
-import { apiEndPoint } from '../lib/constant'
+import { apiEndPoint, firebase } from '../lib/constant'
 import { authContext } from '../lib/userContext'
 
 let time = null
@@ -13,18 +15,35 @@ export default function myPost() {
   const username = useContext(authContext)
 
   useEffect(async () => {
-    const posts = await (await fetch(apiEndPoint + '/pendings')).json()
-    setPosts(posts)
+    if (username.displayName) {
+      const tokenId = await firebase.auth().currentUser.getIdToken()
+      const myPosts = username.displayName
+        ? await (
+            await fetch(apiEndPoint + '/pendings', {
+              method: 'GET',
+              headers: {
+                Authorization: `Bearer ${tokenId}`,
+              },
+            })
+          ).json()
+        : []
+      setPosts(myPosts)
+    }
   }, [username])
 
-  if (process.browser) {
-    if (!username.admin && username.displayName !== null) {
-      router.push('/', undefined, { shallow: true })
-      return null
-    }
-  }
-  if (!username.admin) {
-    return null
+  if (!username.admin && username.displayName === '') {
+    return (
+      <div className="flex justify-center h-screen h-center items-center">
+        <div className="items-center">
+          <p className="text-3xl">You can't access this page</p>
+          <Link href="/">
+            <button className="mt-3 text-2xl bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+              Back to Home
+            </button>
+          </Link>
+        </div>
+      </div>
+    )
   }
 
   return (

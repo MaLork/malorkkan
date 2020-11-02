@@ -86,7 +86,7 @@ const Post = ({ postData, commentData, id }) => {
               type="submit"
               className="rounded bg-green-500 hover:bg-green-700 text-white bold px-4 py-1"
               onClick={async () => {
-                if (!user) {
+                if (!user.displayName) {
                   alert('Please Login first!')
                   return
                 }

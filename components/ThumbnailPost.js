@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
+import router from 'next/router'
 import Share from '../components/Share.js'
-import { url, apiEndPoint, month } from '../lib/constant.js'
+import { firebase, url, apiEndPoint, month } from '../lib/constant.js'
+
 export default function ThumbnailPost({ data, status, width, admin }) {
   const [display, setDisplay] = useState('hidden')
   const [stat, setStat] = useState(status)
   let date = new Date(data.time)
+
   return (
     <>
       <Share
@@ -190,7 +193,9 @@ export default function ThumbnailPost({ data, status, width, admin }) {
                     fontFamily: 'Quark-Bold',
                     fontSize: 30,
                   }}
-                  onClick={() => update(data.id, true, stat, setStat, data)}
+                  onClick={() =>
+                    update(data.id, true, stat, setStat, data, admin)
+                  }
                 >
                   Approve
                 </button>
@@ -203,7 +208,9 @@ export default function ThumbnailPost({ data, status, width, admin }) {
                     fontFamily: 'Quark-Bold',
                     fontSize: 30,
                   }}
-                  onClick={() => update(data.id, false, stat, setStat, data)}
+                  onClick={() =>
+                    update(data.id, false, stat, setStat, data, admin)
+                  }
                 >
                   Reject
                 </button>
@@ -215,21 +222,26 @@ export default function ThumbnailPost({ data, status, width, admin }) {
     </>
   )
 }
-const update = async (id, approve, stat, updateStat, data) => {
-  const res = await fetch(apiEndPoint + '/pending/' + id, {
-    method: 'PUT',
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8', // Indicates the content
-    },
-    body: JSON.stringify({ approve }),
-  })
-  if (res.status == 200) {
-    if (approve) {
-      updateStat('accepted')
-      data.status = 'accepted'
-    } else {
-      updateStat('rejected')
-      data.status = 'rejected'
+const update = async (id, approve, stat, updateStat, data, admin) => {
+  if (admin) {
+    const tokenId = await firebase.auth().currentUser.getIdToken()
+    const res = await fetch(apiEndPoint + '/pending/' + id, {
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8', // Indicates the content
+        Authorization: `Bearer ${tokenId}`,
+      },
+      body: JSON.stringify({ approve }),
+    })
+    if (res.status == 200) {
+      if (approve) {
+        updateStat('accepted')
+        data.status = 'accepted'
+      } else {
+        updateStat('rejected')
+        data.status = 'rejected'
+      }
+      router.push('/admin')
     }
   }
 }
