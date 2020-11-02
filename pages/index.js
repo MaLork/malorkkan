@@ -5,7 +5,7 @@ import Link from 'next/link'
 import React, { useContext, useEffect, useState } from 'react'
 import { authContext } from '../lib/userContext'
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   // const posts = await (await fetch("https://asia-east2-malork-kantoer.cloudfunctions.net/posts")).json()
   const post = await (
     await fetch(apiEndPoint + '/posts?page=1', {

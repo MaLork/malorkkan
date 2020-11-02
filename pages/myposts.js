@@ -25,13 +25,11 @@ export default function myPost() {
             })
           ).json()
         : []
-      console.log(myPosts)
       setPosts(myPosts)
     }
   }, [username])
 
   if (process.browser) {
-    console.log(username.displayName)
     if (username.displayName === '') {
       return (
         <div className="flex justify-center h-screen h-center items-center">
