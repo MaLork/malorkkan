@@ -2,8 +2,36 @@ import Layout from "../components/Layout"
 import React, { useState, useContext, useEffect } from 'react'
 import { authContext } from '../lib/userContext'
 export default function about() {
+    const [display,setDisplay] = useState("hidden")
     const username = useContext(authContext)
     return(
+        <>
+        <div
+        class={"bg-gray-400 bg-opacity-50 cursor-pointer " + display}
+        style={{
+          zIndex: 2,
+          position: "fixed",
+          width: "100%",
+          height: "100%",
+          top: "0%",
+          left: "0%",
+        }}
+        onClick={() => {
+          setDisplay("hidden");
+        }}
+      ></div>
+       <img
+       src="../images/promptPay.jpg"
+        class={display}
+        style={{
+          zIndex: 3,
+          position: "fixed",
+          top: "50%",
+          width:400,
+          left: "50%",
+          transform: "translate(-50%,-50%)",
+        }}
+      ></img>
         <Layout username={username.displayName} admin={username.admin}>
         <div class="text-center">
             <div class="flex justify-center">
@@ -41,6 +69,10 @@ export default function about() {
         <img class="inline mr-4" style={{width:40}} src="../images/email.svg"></img>
         <p class="inline"style={{fontFamily:"Quark-Bold",fontSize:"20px"}}>malorktogether@malork.org</p>
         </div>
+        <div class="px-40 flex items-center justify-center pt-4" onClick={()=>{setDisplay("block")}}>
+            <button class="pt-2 text-white rounded-xl focus:outline-none"style={{width:"100%",fontFamily:"Quark-Bold",fontSize:48,backgroundColor:"#52C587"}}>Wanna support us, it’s all set HERE!!</button>
+        </div>
         </Layout>
+        </>
     )
 }
