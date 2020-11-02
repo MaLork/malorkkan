@@ -11,27 +11,29 @@ import Layout from '../../components/Layout'
 import { useState, useContext } from 'react'
 import { authContext } from '../../lib/userContext'
 import router from 'next/router'
-import Share from "../../components/Share.js";
-import {url} from "../../lib/constant.js"
+import Share from '../../components/Share.js'
+import { url } from '../../lib/constant.js'
+
 const Post = ({ postData, commentData, id }) => {
   const commentSize = commentData.comments.length
   const [content, setContent] = useState('')
-  const [display, setDisplay] = useState("hidden");
+  const [display, setDisplay] = useState('hidden')
 
   const user = useContext(authContext)
 
   return (
     <>
-       <Share
+      <Share
         topic={postData.topic}
-        link={
-          url +
-          "/post/" + postData.id
-        }
+        link={url + '/post/' + postData.id}
         display={display}
         setDisplay={setDisplay}
       ></Share>
-      <Layout username={user.displayName} className="flex flex-col h-screen">
+      <Layout
+        username={user.displayName}
+        admin={user.admin}
+        className="flex flex-col h-screen"
+      >
         <div
           className="container mx-auto flex content-center flow-root w-1/2 rounded py-2 mt-8 mb-16 pt-4"
           style={{ backgroundColor: '#FFF4EE' }}
@@ -41,7 +43,7 @@ const Post = ({ postData, commentData, id }) => {
             <button
               className="flex items-center text-white rounded px-2 py-1 mt-2"
               style={{ backgroundColor: '#123D6A' }}
-              onClick={()=>setDisplay("block")}
+              onClick={() => setDisplay('block')}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
