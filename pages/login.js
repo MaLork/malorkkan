@@ -30,7 +30,7 @@ const login = () => {
             class="m-auto relative"
             style={{ width: '40%', fontFamily: 'Quark-Bold', fontSize: '36px' }}
           >
-            <p className="items-center mt-2">{loginFailed}</p>
+            <p className="items-center mt-8 -mb-2" style={{ fontFamily: 'Lato-Medium', fontSize: '20px',color:"#AB3B61"}}>{loginFailed}</p>
             <p
               class="mt-6 mb-2"
               style={{ fontFamily: 'Roboto-Regular', fontSize: '60px' }}
