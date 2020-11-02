@@ -107,16 +107,7 @@ const Post = ({ postData, commentData, id }) => {
   )
 }
 
-export async function getStaticPaths() {
-  const allPath = await retrievePostData()
-  const paths = getAllPathId(allPath)
-  return {
-    paths,
-    fallback: false,
-  }
-}
-
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   const postData = await getPostById(params.id)
   const commentData = await getCommentById(params.id)
   return {
