@@ -7,6 +7,18 @@
     padding-left: 20px;
     padding-right: 20px;
 }
+.inputTextArea{
+    font-family: "Mitr-Regular";
+    font-size: 24px;
+    width: 100%;
+    height: 200px;
+    border-radius: 0.5rem;
+    padding-left: 20px;
+    padding-right: 20px;
+}
 .input:focus{
+    outline: none;
+}
+.inputTexxtArea:focus{
     outline: none;
 }

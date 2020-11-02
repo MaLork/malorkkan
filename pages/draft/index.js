@@ -5,6 +5,7 @@ import Layout from '../../components/Layout'
 import { useContext } from 'react'
 import { authContext } from '../../lib/userContext'
 import { postForum } from '../../lib/sendMethods/sendPostData'
+import style from '../../styles/register.module.css'
 
 export default function draft() {
   const [valueDesc, setValueDesc] = useState('')
@@ -14,8 +15,8 @@ export default function draft() {
 
   return (
     <Layout username={user.displayName} admin={user.admin} className="h-full">
-      <div className="flex h-screen flex-col">
-        <h1>Create a post</h1>
+      <div className="px-40 flex h-screen flex-col">
+        <p style={{fontFamily:"Roboto-Regular",fontSize:36}}>Create a post</p>
         <div className="flex justify-center items-center h-full flex-col text-2xl">
           <form
             onSubmit={async (e) => {
@@ -43,18 +44,18 @@ export default function draft() {
             }}
           >
             <div>
-              <p className="mb-4">Topic</p>
+              <p style={{"fontFamily":"Quark-Bold","fontSize":"36px"}}>Topic</p>
               <input
-                className="resize-none border rounded focus:outline-none focus:shadow-outline"
+              className={style.input}
                 type="text"
                 onChange={(event) => setValueTopic(event.target.value)}
               />
             </div>
             <br />
             <div>
-              <p className="mb-4">Description</p>
+              <p style={{"fontFamily":"Quark-Bold","fontSize":"36px"}}>Description</p>
               <textarea
-                className="h-32 w-64 resize-none border rounded focus:outline-none focus:shadow-outline"
+                className={style.inputTextArea}
                 onChange={(event) => setValueDesc(event.target.value)}
               ></textarea>
             </div>

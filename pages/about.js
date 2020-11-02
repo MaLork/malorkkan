@@ -1,7 +1,10 @@
 import Layout from "../components/Layout"
+import React, { useState, useContext, useEffect } from 'react'
+import { authContext } from '../lib/userContext'
 export default function about() {
+    const username = useContext(authContext)
     return(
-        <Layout>
+        <Layout username={username.displayName} admin={username.admin}>
         <div class="text-center">
             <div class="flex justify-center">
             <img src="../images/Joseph.jpg" style={{width:150}}></img>
