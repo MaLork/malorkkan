@@ -19,7 +19,7 @@ export default function myPost() {
       const tokenId = await firebase.auth().currentUser.getIdToken()
       const myPosts = username.displayName
         ? await (
-            await fetch(apiEndPoint + '/pendings', {
+            await fetch(apiEndPoint + '/pendings/admin', {
               method: 'GET',
               headers: {
                 Authorization: `Bearer ${tokenId}`,
@@ -31,7 +31,7 @@ export default function myPost() {
     }
   }, [username])
 
-  if (!username.admin && username.displayName === '') {
+  if (!username.admin && username.displayName !== '') {
     return (
       <div className="flex justify-center h-screen h-center items-center">
         <div className="items-center">

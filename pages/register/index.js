@@ -60,8 +60,8 @@ export default function register() {
             {errorMessage}
           </p>
           <div
-            onClick={() => {
-              const res = validate(
+            onClick={async () => {
+              const res = await validate(
                 user,
                 setUser,
                 email,
@@ -131,6 +131,7 @@ const validate = async (
         setErrorMessage(error.message)
         return null
       })
+    console.log(res)
     if (res) {
       res.updateProfile({
         displayName: user,
@@ -139,6 +140,7 @@ const validate = async (
       const body = {
         user,
       }
+
       await fetch(`${apiEndPoint}/user/signup`, {
         method: 'POST',
         body: JSON.stringify(body),
@@ -148,6 +150,7 @@ const validate = async (
         },
       })
       await firebase.auth().signOut()
+      console.log('Pass')
       return 'Success'
     } else {
       return 'Error'
