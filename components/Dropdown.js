@@ -60,6 +60,51 @@ export default function Dropdown({ username, admin }) {
             </p>
           </div>
         </div>
+        <div>
+          {admin ? (
+            <Link href="/admin">
+              <a class={'border-t-2 border-b-2 border-black ' + display}>
+                <div
+                  class="absolute text-xl relative"
+                  style={{
+                    height: '50px',
+                    backgroundColor: admin ? '#123D6A' : '#FFFFFF',
+                  }}
+                >
+                  <div
+                    class="w-8 h-8 absolute"
+                    style={{ top: '50%', transform: 'translate(13px, -50%)' }}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="yellow"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
+                      />
+                    </svg>
+                  </div>
+                  <p
+                    class="pl-12 pr-2"
+                    style={{
+                      color: admin ? '#FFFFFF' : '#000000',
+                      fontFamily: 'Quark-Bold',
+                      fontSize: '18px',
+                      transform: 'translate(0, 50%)',
+                    }}
+                  >
+                    Admin
+                  </p>
+                </div>
+              </a>
+            </Link>
+          ) : null}
+        </div>
         <Link href="/myposts">
           <a class={'border-t-2 border-b-2 border-black ' + display}>
             <div
