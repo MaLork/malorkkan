@@ -65,7 +65,7 @@ export default function myPost({ post }) {
 
   return (
     <Layout username={username.displayName} admin={username.admin}>
-      <img src="/images/SpaceWallpaper.jpg"></img>
+      <img src="/images/homepage.png"></img>
       <div class="flex">
         <div class="inline mb-4">
           <div class="my-8" style={{ 'padding-left': '7.125rem' }}>
