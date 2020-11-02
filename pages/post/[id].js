@@ -78,6 +78,7 @@ const Post = ({ postData, commentData, id }) => {
               className="resize-none w-full px-2 py-2 h-auto"
               placeholder="Enter your answer"
               rows="5"
+              style={{ fontFamily: 'Mitr-light' }}
               onChange={(e) => setContent(e.target.value)}
             />
           </div>
